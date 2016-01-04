@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', ['middleware' => 'sentinel.auth', 'uses' => 'UserController@LogUser']);
+//return view('welcome')
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,6 +23,7 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+
 
 Route::group(['middleware' => ['web']], function () {
     //
