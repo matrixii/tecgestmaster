@@ -12,6 +12,9 @@
 */
 
 Route::get('/', ['middleware' => 'sentinel.auth', 'uses' => 'UserController@LogUser']);
+Route::get('/guest', [ 'uses' => 'UserController@GuestUser']);
+Route::post('/guest/login', [ 'uses' => 'UserController@LogGuest']);
+Route::get('/guest/register', [ 'uses' => 'UserController@RegisterGuest']);
 //return view('welcome')
 /*
 |--------------------------------------------------------------------------

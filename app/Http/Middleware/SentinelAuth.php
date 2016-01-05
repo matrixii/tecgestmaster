@@ -9,6 +9,7 @@
 namespace App\Http\Middleware;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
+use Illuminate\Support\Facades\Redirect;
 
 class SentinelAuth
 {
@@ -19,7 +20,7 @@ class SentinelAuth
 
         if(!Sentinel::check())
         {
-            return('non longgato 2');
+            return Redirect::to('/guest');
 
             // return redirect()->route('home');
         }

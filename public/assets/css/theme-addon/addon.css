@@ -1,0 +1,17 @@
+.img-backdrop {
+ border-bottom: 2px solid #eb0038;
+}
+
+.btn{
+
+    border-radius: 0px!important;
+
+}
+.btn-raised {
+    /* -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33); */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.33);
+    /* -webkit-transition: -webkit-box-shadow 0.15s ease-out; */
+    -moz-transition: -moz-box-shadow 0.15s ease-out;
+    -o-transition: -o-box-shadow 0.15s ease-out;
+    transition: box-shadow 0.15s ease-out;
+}
