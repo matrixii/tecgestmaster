@@ -101,19 +101,16 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="provincia" class="control-label">Regione</label>
-                                                <select name="provincia" class="form-control">
+                                                <select name="provincia" class="form-control" id="regione">
                                                     <option></option>
-                                                    @foreach($provincie as $provincia)
-                                                    <option value="{{$provincia->id}}">{{$provincia->regione}}</option>
 
-                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="comune" class="control-label">Provincia</label>
-                                                <select name="comune" class="form-control">
+                                                <select name="comune" class="form-control" id="provincia">
                                                     <option></option>
                                                     <option value="-1">Selezionare</option>
 
@@ -194,15 +191,55 @@
     @parent
     <script src="/assets/js/libs/wizard/jquery.bootstrap.wizard.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
+    <script type="text/javascript">
 
+        function selectRegione()
+        {
+            var option;
+            //$('#provincia').select2('destroy');
+            $('#regione').find('option').remove();
+            $.getJSON( "/ajax/province").done(function(data2) {
+                var keys = [];
+                $.jresults = data2;
+                console.log($.jresults);
+                $.jresults.forEach(function (element, index) {
+                    console.log(element);
+                    option = "<option value='" + element.id + "'>" + element.regione + "</option>";
+                    $('#regione').append(option);
+                });
+            });
+        }
+        function selectProvincia(idComune)
+        {
+            var option;
+            //$('#provincia').select2('destroy');
+            $('#provincia').find('option').remove();
+            $.getJSON( "/ajax/comuni/"+idComune).done(function(data2) {
+                var keys = [];
+                $.jresults = data2;
+                console.log($.jresults);
+                $.jresults.forEach(function (element, index) {
+                    console.log(element);
+                    option = "<option value='" + element.id + "'>" + element.descrizione + "</option>";
+                    $('#provincia').append(option);
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            //inizializzo il wizard
             $('#wizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
                 var $total = navigation.find('li').length;
                 var $current = index+1;
                 var $percent = ($current/$total) * 100;
                 $('#wizard').find('.progress-bar').css({width:$percent+'%'});
             }});
+            //chiamate ajax comuni
+            selectRegione();
+            $('#regione').on('change',function(e)
+            {
+                selectProvincia(e.val);
+            });
         });
 
     </script>

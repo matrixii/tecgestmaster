@@ -28,6 +28,15 @@ Route::get('/guest/register', [ 'uses' => 'UserController@RegisterGuest']);
 */
 
 
+
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['prefix' =>'ajax'], function () {
+    //
+    Route::get('/province', [ 'uses' => 'UserController@GetProvince']);
+    Route::get('/comuni/{idprov?}', [ 'uses' => 'UserController@getComuniByProvincia']);
+
+
 });

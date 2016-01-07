@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use App\Comuni;
+use App\Helpers\TerritoriHelper;
 class UserController extends Controller
 {
 
@@ -39,6 +40,20 @@ class UserController extends Controller
         $provincie=Comuni::select('id','regione')->groupBy('regione')->get();
 
         return View('guestRegister',['provincie' => $provincie]);
+    }
+
+    protected function GetProvince()
+    {
+
+        return TerritoriHelper::GetProvince();
+
+    }
+
+    protected function getComuniByProvincia($id)
+    {
+
+        return TerritoriHelper::getComuniByidProv($id);
+
     }
 
 
